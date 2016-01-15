@@ -10,7 +10,7 @@ from pathlib import Path  # For debugging
 # easy to vary just the part that changes from 
 # project to project.
 #
-ClassDir="/home/faculty/michal/public_html/htbin/cis322"
+ClassDir="/~jsmith/public_html/cis322/htbin"
 ProjDir="{}/proj2-flask".format(ClassDir)
 EnvLib="{}/env/lib/python3.4/site-packages".format(ProjDir)
 
