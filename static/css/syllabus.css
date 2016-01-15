@@ -2,7 +2,7 @@
  * A simple style sheet for course schedules 
  *
  * Original : M Young, September 2015
- * Revised:  
+ * Revised:  J Smith, January 2016
  */
 
 body {
@@ -35,6 +35,16 @@ tr.even {
     font-weight: bolder;
     font-size: 150%; 
     text-align: center; 
+}
+
+.class-schedule .current {
+	
+	/* Highlights the current week as yellow; modified from formatting week. */
+	
+	font-weight: bolder;
+	font-size: 150%;
+	text-align:center;
+	background-color: yellow;
 }
 
 .class-schedule .topic {

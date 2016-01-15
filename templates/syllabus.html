@@ -1,3 +1,4 @@
+<!-- Jared Smith / 951452843 / CIS 399se / January 15, 2016 -->
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html> <head>
 <title>Course Schedule</title>
@@ -17,8 +18,13 @@
   <tr class="even">
   {% else %}
   <tr class="odd">
-  {% endif %}	   
+  {% endif %}
+  <!--Uses a conditional check to highlight the current week.-->
+  	{% if entry.date  %}
+  	<td class="current">{{ entry.week }}</td>
+  	{% else %}	   
     <td class="week">{{ entry.week }}</td>
+	{% end if%}
     <td class="topic">{{ entry.topic }}</td>
     <td class="project">{{ entry.project}}</td>
   </tr>
