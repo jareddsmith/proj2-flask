@@ -20,11 +20,11 @@
   <tr class="odd">
   {% endif %}
   <!--Uses a conditional check to highlight the current week.-->
-  	{% if entry.date  %}
-  	<td class="current">{{ entry.week }}</td>
-  	{% else %}	   
-    <td class="week">{{ entry.week }}</td>
-	{% end if%}
+	{% if entry.date |  curr_check %}
+	<td class="current">{{ entry.week }}{{ entry.date | fmtdate }}</td>
+	{% else %}
+    <td class="week">{{ entry.week }}{{ entry.date | fmtdate }}</td>
+    {% endif %}
     <td class="topic">{{ entry.topic }}</td>
     <td class="project">{{ entry.project}}</td>
   </tr>

@@ -68,9 +68,25 @@ def page_not_found(error):
 def format_arrow_date( date ):
     try: 
         normal = arrow.get( date )
-        return normal.format("ddd MM/DD/YYYY")
+        return normal.format("\n ddd MM/DD/YYYY")
+    
     except:
         return "(bad date)"
+
+@app.template_filter('curr_check')
+def current_check(week):
+    try:
+        curr_week = arrow.Arrow.isocalendar(arrow.now())[1]
+        check_week = arrow.Arrow.isocalendar(arrow.get(week))[1]
+        
+        if curr_week is check_week:
+            return True
+        
+        else:
+            return False
+
+    except:
+        return "Check has failed."
 
 
 #############

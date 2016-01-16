@@ -3,8 +3,6 @@ Test program for pre-processing schedule
 """
 import arrow
 
-base = arrow.now()
-
 def process(raw):
     """
     Line by line processing of syllabus file.  Each line that needs
@@ -14,6 +12,8 @@ def process(raw):
     field = None
     entry = { }
     cooked = [ ] 
+    week_count = 0
+    
     for line in raw:
         line = line.rstrip()
         if len(line) == 0:
@@ -34,6 +34,11 @@ def process(raw):
             	#Creates an arrow object from the begin date
             	
                 base = arrow.get(content)
+                
+                #Work-around for the bug given by the line above
+                #where the beginning 1/4/16 is incorrectly retrieved as 1/1/16 .
+                base = base.replace(days=+3)
+                
             except:
                 raise ValueError("Unable to parse date {}".format(content))
 
@@ -44,11 +49,10 @@ def process(raw):
             entry['topic'] = ""
             entry['project'] = ""
             entry['week'] = content
+            entry['date'] = arrow.Arrow.isoformat(base.replace(weeks=+week_count))
             
-            counted_days = count_days(content)
-            week_start = base.replace(days=+counted_days)
-            entry['date'] = arrow.Arrow.isoformat(week_start)
-
+            week_count +=1
+			
         elif field == 'topic' or field == 'project':
             entry[field] = content
 
@@ -60,13 +64,6 @@ def process(raw):
 
     return cooked
     
-def count_days(week):
-	"""
-	Calculates the number of days that have passed since the beginning date.
-	"""
-	
-	return (int(week)- 1)*7
-
 def main():
     f = open("static/schedule.txt")
     parsed = process(f)
