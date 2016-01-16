@@ -31,6 +31,8 @@ def process(raw):
 
         if field == "begin":
             try:
+            	#Creates an arrow object from the begin date
+            	
                 base = arrow.get(content)
             except:
                 raise ValueError("Unable to parse date {}".format(content))
@@ -42,6 +44,10 @@ def process(raw):
             entry['topic'] = ""
             entry['project'] = ""
             entry['week'] = content
+            
+            counted_days = count_days(content)
+            week_start = base.replace(days=+counted_days)
+            entry['date'] = arrow.Arrow.isoformat(week_start)
 
         elif field == 'topic' or field == 'project':
             entry[field] = content
@@ -53,7 +59,13 @@ def process(raw):
         cooked.append(entry)
 
     return cooked
-
+    
+def count_days(week):
+	"""
+	Calculates the number of days that have passed since the beginning date.
+	"""
+	
+	return (int(week)- 1)*7
 
 def main():
     f = open("static/schedule.txt")
